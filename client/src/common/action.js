@@ -19,7 +19,7 @@ export const sendLoginData = ({ data, props }) => (dispatch) => {
 		.then((response) => {
 			if (response.data.token) {
 				localStorage.setItem('token', response.data.token);
-				return props.history.push('/api/donwload');
+				return props.history.push('/api/download');
 			}
 		})
 		.catch((error) => {
