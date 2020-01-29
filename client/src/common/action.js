@@ -17,7 +17,7 @@ export const sendLoginData = (data) => (dispatch) => {
 	const User = { password: hashP, name: name };
 	axios({
 		method: 'POST',
-		url: '',
+		url: 'http://172.24.211.94:8080/api/login',
 		data: User
 	})
 		.then((response) => {
