@@ -4,6 +4,8 @@ import bodyParser from 'body-parser';
 import apiRoute from './routs/api';
 import cors from 'cors';
 
+export const SESSION = new Map();
+
 const app = express();
 
 app.use(cors());
