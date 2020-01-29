@@ -27,3 +27,16 @@ export const sendLoginData = (data) => (dispatch) => {
 			console.log(error);
 		});
 };
+
+export const loadFiles = () => () => {
+	axios({
+		method: 'GET',
+		url: 'http://172.24.211.7:8080/api/download'
+	})
+		.then((response) => {
+			console.log(response);
+		})
+		.catch((error) => {
+			console.log(error);
+		});
+};

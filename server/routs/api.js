@@ -5,4 +5,6 @@ const router = express.Router();
 
 router.post('/login', contoller.login);
 
+router.get('/download', contoller.download);
+
 export default router;

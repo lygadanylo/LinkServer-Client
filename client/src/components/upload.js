@@ -1,9 +1,23 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { loadFiles } from '../common/action';
 
 class Upload extends Component {
 	render() {
-		return <div>asd</div>;
+		const { loadFiles } = this.props;
+		return (
+			<div>
+				<button onClick={() => loadFiles()}>Download files</button>
+			</div>
+		);
 	}
 }
+const mapStateToProps = (state) => {
+	return {};
+};
 
-export default Upload;
+const mapDispatchToProps = {
+	loadFiles
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Upload);
