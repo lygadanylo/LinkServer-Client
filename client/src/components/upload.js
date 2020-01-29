@@ -19,8 +19,8 @@ class Upload extends Component {
 		const { loadFiles } = this.props;
 		return (
 			<div>
-				<button onClick={() => loadFiles()}>Download files</button>
 				<button onClick={() => this.logout()}>Log Out</button>
+				<button onClick={() => loadFiles('110002225554477')}>Download files</button>
 			</div>
 		);
 	}
