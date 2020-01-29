@@ -1,11 +1,21 @@
 import express from 'express';
-import { HOST, PORT } from './variables';
+import { HOST, PORT, CONNECTION } from './variables';
+import bodyParser from 'body-parser';
 
 const app = express();
 
-app.listen(PORT, HOST, (error) => {
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+CONNECTION.connect((error) => {
 	if (error) {
 		console.log(error);
 	}
-	console.log(`Server listen on ${HOST}:${PORT}`);
+	console.log('Connection with DB created.');
+	app.listen(PORT, HOST, (error) => {
+		if (error) {
+			console.log(error);
+		}
+		console.log(`Server listen on ${HOST}:${PORT}`);
+	});
 });
