@@ -10,9 +10,10 @@ class Login extends Component {
 
 	sendData = (data) => {
 		const { name, password } = data;
+		const props = this.props;
 		const { sendLoginData, Notification } = this.props;
 		if (name !== '' && password !== '') {
-			sendLoginData(data);
+			sendLoginData({ data, props });
 			return this.setState({ name: '', password: '' });
 		} else {
 			Notification('Field if empty');
