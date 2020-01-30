@@ -22,8 +22,14 @@ class Upload extends Component {
 		this.props.history.push('/');
 	};
 
-	render() {
+	sendData = (sessionId) => {
 		const { loadFiles } = this.props;
+		const props = this.props;
+		loadFiles({ sessionId, props });
+		return this.setState({ sessionId: ' ' });
+	};
+
+	render() {
 		const { sessionId } = this.state;
 		return (
 			<div className="download-wrapper">
@@ -32,6 +38,7 @@ class Upload extends Component {
 						<div className="inputs">
 							<h1>User Session Id</h1>
 							<input
+								value={sessionId}
 								type="number"
 								name="sessionId"
 								className="sessionid-input"
@@ -39,7 +46,7 @@ class Upload extends Component {
 							/>
 						</div>
 						<div className="btn-wrapper">
-							<button className="download-btn" onClick={() => loadFiles({ sessionId })}>
+							<button className="download-btn" onClick={() => this.sendData(sessionId)}>
 								Download LinkServer log file
 							</button>
 						</div>
