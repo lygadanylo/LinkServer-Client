@@ -11,7 +11,7 @@ class Register extends Component {
 	sendData = (data) => {
 		const { sendRegisterData } = this.props;
 		sendRegisterData(data);
-		return (this.setState = { name: ' ', password: ' ', userRole: ' ' });
+		return this.setState({ name: ' ', password: ' ', userRole: ' ' });
 	};
 
 	render() {

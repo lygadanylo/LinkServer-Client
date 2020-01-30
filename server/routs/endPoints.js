@@ -67,7 +67,7 @@ export const login = (req, res) => {
 	if (name !== '' && password !== '') {
 		getUser(name)
 			.then((response) => {
-				const { userPassword, userName } = response[0];
+				const { userPassword, userName, userClass } = response[0];
 				const hashPassword = Decrypt(userPassword);
 				if (password === hashPassword) {
 					const token = new TokenGenerator().generate();
@@ -75,7 +75,7 @@ export const login = (req, res) => {
 					setInterval(() => {
 						SESSION.delete(token);
 					}, 15 * 60 * 1000);
-					return res.status(200).json({ token });
+					return res.status(200).json({ token, userClass });
 				} else {
 					return res.status(500).json({ msg: 'Password invalid' });
 				}

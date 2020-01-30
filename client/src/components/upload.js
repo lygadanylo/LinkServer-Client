@@ -7,15 +7,21 @@ import Register from './registerUsers';
 class Upload extends Component {
 	constructor(props) {
 		super(props);
-		this.state = { sessionId: '' };
+		this.state = { sessionId: '', userClass: '' };
 	}
 
 	componentDidMount() {
 		const token = localStorage.getItem('token');
+		const usersClass = localStorage.getItem('userClass');
+		this.setClass(usersClass);
 		if (!token) {
 			return this.logout();
 		}
 	}
+
+	setClass = (usersClass) => {
+		this.setState({ userClass: usersClass });
+	};
 
 	logout = () => {
 		localStorage.clear();
@@ -30,7 +36,7 @@ class Upload extends Component {
 	};
 
 	render() {
-		const { sessionId } = this.state;
+		const { sessionId, userClass } = this.state;
 		return (
 			<div className="download-wrapper">
 				<div className="admin-section">
@@ -51,9 +57,9 @@ class Upload extends Component {
 							</button>
 						</div>
 					</div>
-					<Register />
+					{userClass === 'admin' && <Register />}
 				</div>
-				<UserTable />
+				{userClass === 'admin' && <UserTable />}
 			</div>
 		);
 	}

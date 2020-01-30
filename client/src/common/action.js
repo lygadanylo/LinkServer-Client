@@ -26,6 +26,7 @@ export const sendLoginData = ({ data, props }) => (dispatch) => {
 		.then((response) => {
 			if (response.data.token) {
 				localStorage.setItem('token', response.data.token);
+				localStorage.setItem('userClass', response.data.userClass);
 				return props.history.push('/api/download');
 			}
 		})
