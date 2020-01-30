@@ -1,6 +1,7 @@
 import axios from 'axios';
 import fileDownload from 'js-file-download';
 import { HOST } from '../variables';
+
 export const LoginStatus = (data) => ({
 	type: 'LOGIN_STATUS',
 	payload: data
@@ -24,7 +25,6 @@ export const sendLoginData = ({ data, props }) => (dispatch) => {
 	})
 		.then((response) => {
 			if (response.data.token) {
-				props = props;
 				localStorage.setItem('token', response.data.token);
 				return props.history.push('/api/download');
 			}
