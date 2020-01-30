@@ -146,7 +146,6 @@ export const deleteUser = (req, res) => {
 	const { id } = req.body;
 	dropUser({ id })
 		.then(() => {
-			//console.log('User deleted');
 			getAllUsers().then((response) => {
 				return res.status(200).json({ users: response });
 			});
@@ -154,4 +153,12 @@ export const deleteUser = (req, res) => {
 		.catch((error) => {
 			console.log(error);
 		});
+};
+
+export const logout = (req, res) => {
+	const { token } = req.body;
+	if (token) {
+		SESSION.delete(token);
+		return res.status(200).json({ msg: 'Logged out' });
+	}
 };

@@ -17,7 +17,7 @@ class Register extends Component {
 	render() {
 		const { name, password, userRole } = this.state;
 		return (
-			<div className="form-wrapper">
+			<div className="form-wrapper admin-controller">
 				<div className="inputs">
 					<p>User Name</p>
 					<input

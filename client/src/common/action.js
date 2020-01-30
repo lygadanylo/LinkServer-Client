@@ -91,3 +91,18 @@ export const deletUser = (data) => (dispatch) => {
 			console.log(error);
 		});
 };
+
+export const LogOut = ({ token, props }) => (dispatch) => {
+	axios({
+		method: 'POST',
+		url: `http://${HOST}:8080/api/logout`,
+		data: { token }
+	})
+		.then(() => {
+			localStorage.clear();
+			return props.history.push('/');
+		})
+		.catch((error) => {
+			console.log(error);
+		});
+};

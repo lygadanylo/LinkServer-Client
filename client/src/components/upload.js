@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { loadFiles } from '../common/action';
+import { loadFiles, LogOut } from '../common/action';
 import UserTable from './usersTable';
 import Register from './registerUsers';
 
@@ -24,8 +24,10 @@ class Upload extends Component {
 	};
 
 	logout = () => {
-		localStorage.clear();
-		this.props.history.push('/');
+		const { LogOut } = this.props;
+		const token = localStorage.getItem('token');
+		const props = this.props;
+		LogOut({ token, props });
 	};
 
 	sendData = (sessionId) => {
@@ -40,7 +42,7 @@ class Upload extends Component {
 		return (
 			<div className="download-wrapper">
 				<div className="admin-section">
-					<div className="form-wrapper">
+					<div className="form-wrapper admin-controller">
 						<div className="inputs">
 							<h1>User Session Id</h1>
 							<input
@@ -60,6 +62,9 @@ class Upload extends Component {
 					{userClass === 'admin' && <Register />}
 				</div>
 				{userClass === 'admin' && <UserTable />}
+				<button className="logout" onClick={() => this.logout()}>
+					Log Out
+				</button>
 			</div>
 		);
 	}
@@ -69,7 +74,8 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
-	loadFiles
+	loadFiles,
+	LogOut
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Upload);
