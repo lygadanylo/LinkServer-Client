@@ -5,6 +5,9 @@ export default (state = {}, action) => {
 		case 'NOTIFICATION': {
 			return { ...state, notification: payload };
 		}
+		case 'ALL_USERS': {
+			return { ...state, users: payload };
+		}
 		default: {
 			return { ...state, payload };
 		}

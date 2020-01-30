@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { loadFiles } from '../common/action';
+import UserTable from './usersTable';
 
 class Upload extends Component {
 	componentDidMount() {
@@ -18,10 +19,13 @@ class Upload extends Component {
 	render() {
 		const { loadFiles } = this.props;
 		return (
-			<div>
-				<button onClick={() => this.logout()}>Log Out</button>
-				<button onClick={() => loadFiles('110002225554477')}>Download files</button>
-			</div>
+			<Fragment>
+				<div>
+					<button onClick={() => this.logout()}>Log Out</button>
+					<button onClick={() => loadFiles('110002225554477')}>Download files</button>
+				</div>
+				<UserTable />
+			</Fragment>
 		);
 	}
 }

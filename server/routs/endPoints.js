@@ -40,6 +40,28 @@ const setUser = ({ name, hashPassword }) => {
 	});
 };
 
+const getAllUsers = () => {
+	return new Promise((resolve, reject) => {
+		CONNECTION.query(`Select * from ${TABLE}`, (error, users) => {
+			if (error || users.length === 0) {
+				reject(error);
+			}
+			resolve(users);
+		});
+	});
+};
+
+const dropUser = ({ id }) => {
+	return new Promise((resolve, reject) => {
+		CONNECTION.query(`delete from ${TABLE} where id = ${id}`, (error) => {
+			if (error) {
+				reject(error);
+			}
+			resolve(true);
+		});
+	});
+};
+
 export const login = (req, res) => {
 	const { name, password } = req.body;
 	if (name !== '' && password !== '') {
@@ -102,5 +124,29 @@ export const download = (req, res) => {
 		})
 		.catch((err) => {
 			console.log(err);
+		});
+};
+
+export const featchUsers = (req, res) => {
+	getAllUsers()
+		.then((response) => {
+			return res.status(200).json({ users: response });
+		})
+		.catch((error) => {
+			console.log(error);
+		});
+};
+
+export const deleteUser = (req, res) => {
+	const { id } = req.body;
+	dropUser({ id })
+		.then(() => {
+			console.log('User deleted');
+			getAllUsers().then((response) => {
+				return res.status(200).json({ users: response });
+			});
+		})
+		.catch((error) => {
+			console.log(error);
 		});
 };
