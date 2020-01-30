@@ -87,11 +87,13 @@ export const login = (req, res) => {
 };
 
 export const register = (req, res) => {
-	const { name, password } = req.body;
+	const { name, password, userRole } = req.body;
 	const hashPassword = Encrypt(password);
-	setUser({ name, hashPassword })
-		.then((response) => {
-			console.log(response);
+	setUser({ name, hashPassword, userRole })
+		.then(() => {
+			getAllUsers().then((response) => {
+				return res.status(200).json({ users: response });
+			});
 		})
 		.catch((error) => {
 			console.log(error);
