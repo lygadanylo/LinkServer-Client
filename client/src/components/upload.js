@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { loadFiles } from '../common/action';
+import UserTable from './usersTable';
 
 class Upload extends Component {
 	constructor(props) {
@@ -24,26 +25,27 @@ class Upload extends Component {
 		const { loadFiles } = this.props;
 		const { sessionId } = this.state;
 		return (
-			// <div>
-			// 	<button onClick={() => this.logout()}>Log Out</button>
-			// </div>
 			<div className="download-wrapper">
-				<div className="form-wrapper">
-					<div className="inputs">
-						<h1>User Session Id</h1>
-						<input
-							type="number"
-							name="sessionId"
-							className="sessionid-input"
-							onChange={(e) => this.setState({ sessionId: e.target.value })}
-						/>
+				<div className="admin-section">
+					<div className="form-wrapper">
+						<div className="inputs">
+							<h1>User Session Id</h1>
+							<input
+								type="number"
+								name="sessionId"
+								className="sessionid-input"
+								onChange={(e) => this.setState({ sessionId: e.target.value })}
+							/>
+						</div>
+						<div className="btn-wrapper">
+							<button className="download-btn" onClick={() => loadFiles({ sessionId })}>
+								Download LinkServer log file
+							</button>
+						</div>
 					</div>
-					<div className="btn-wrapper">
-						<button className="download-btn" onClick={() => loadFiles({ sessionId })}>
-							Download LinkServer log file
-						</button>
-					</div>
+					<div className="add-user">asd</div>
 				</div>
+				<UserTable />
 			</div>
 		);
 	}

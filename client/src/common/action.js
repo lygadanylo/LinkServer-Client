@@ -11,6 +11,11 @@ export const Notification = (data) => ({
 	payload: data
 });
 
+export const AllUsers = (data) => ({
+	type: 'ALL_USERS',
+	payload: data
+});
+
 export const sendLoginData = ({ data, props }) => (dispatch) => {
 	axios({
 		method: 'POST',
@@ -50,6 +55,33 @@ export const loadFiles = (data) => () => {
 	})
 		.then((response) => {
 			fileDownload(response.data, `LinkServerLogs_${data.sessionId}.log`);
+		})
+		.catch((error) => {
+			console.log(error);
+		});
+};
+
+export const featchUsers = () => (dispatch) => {
+	axios({
+		method: 'GET',
+		url: 'http://172.24.211.7:8080/api/users'
+	})
+		.then((response) => {
+			dispatch(AllUsers(response.data.users));
+		})
+		.catch((error) => {
+			console.log(error);
+		});
+};
+
+export const deletUser = (data) => (dispatch) => {
+	axios({
+		method: 'POST',
+		url: 'http://172.24.211.7:8080/api/delite',
+		data: data
+	})
+		.then((response) => {
+			dispatch(AllUsers(response.data.users));
 		})
 		.catch((error) => {
 			console.log(error);
