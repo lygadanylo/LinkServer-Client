@@ -1,6 +1,6 @@
 import axios from 'axios';
 import fileDownload from 'js-file-download';
-import { HOST } from '../variables';
+import { HOST, PORT } from '../variables';
 
 export const LoginStatus = (data) => ({
 	type: 'LOGIN_STATUS',
@@ -20,7 +20,7 @@ export const AllUsers = (data) => ({
 export const sendLoginData = ({ data, props }) => (dispatch) => {
 	axios({
 		method: 'POST',
-		url: `http://${HOST}:8080/api/login`,
+		url: `http://${HOST}:${PORT}/api/login`,
 		data: data
 	})
 		.then((response) => {
@@ -38,7 +38,7 @@ export const sendLoginData = ({ data, props }) => (dispatch) => {
 export const sendRegisterData = (data) => (dispatch) => {
 	axios({
 		method: 'POST',
-		url: `http://${HOST}:8080/api/register`,
+		url: `http://${HOST}:${PORT}/api/register`,
 		data: data
 	})
 		.then((response) => {
@@ -53,7 +53,7 @@ export const loadFiles = (data) => () => {
 	const token = localStorage.getItem('token');
 	axios({
 		method: 'POST',
-		url: `http://${HOST}:8080/api/download`,
+		url: `http://${HOST}:${PORT}/api/download`,
 		data: { data, token }
 	})
 		.then((response) => {
@@ -68,7 +68,7 @@ export const loadFiles = (data) => () => {
 export const featchUsers = () => (dispatch) => {
 	axios({
 		method: 'GET',
-		url: `http://${HOST}:8080/api/users`
+		url: `http://${HOST}:${PORT}/api/users`
 	})
 		.then((response) => {
 			dispatch(AllUsers(response.data.users));
@@ -81,7 +81,7 @@ export const featchUsers = () => (dispatch) => {
 export const deletUser = (data) => (dispatch) => {
 	axios({
 		method: 'POST',
-		url: `http://${HOST}:8080/api/delite`,
+		url: `http://${HOST}:${PORT}/api/delite`,
 		data: data
 	})
 		.then((response) => {
@@ -95,7 +95,7 @@ export const deletUser = (data) => (dispatch) => {
 export const LogOut = ({ token, props }) => (dispatch) => {
 	axios({
 		method: 'POST',
-		url: `http://${HOST}:8080/api/logout`,
+		url: `http://${HOST}:${PORT}/api/logout`,
 		data: { token }
 	})
 		.then(() => {

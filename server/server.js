@@ -12,6 +12,8 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+app.use(express.static('../client/build'));
+
 app.use('/api', apiRoute);
 
 CONNECTION.connect((error) => {
