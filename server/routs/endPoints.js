@@ -26,10 +26,10 @@ const getUser = (name) => {
 	});
 };
 
-const setUser = ({ name, hashPassword }) => {
+const setUser = ({ name, hashPassword, userRole }) => {
 	return new Promise((resolve, reject) => {
 		CONNECTION.query(
-			`insert into ${TABLE} (userName, userPassword) values ('${name}', '${hashPassword}')`,
+			`insert into ${TABLE} (userName, userPassword,userClass) values ('${name}', '${hashPassword}', '${userRole}')`,
 			(error, data) => {
 				if (error) {
 					reject(error);
@@ -146,7 +146,7 @@ export const deleteUser = (req, res) => {
 	const { id } = req.body;
 	dropUser({ id })
 		.then(() => {
-			console.log('User deleted');
+			//console.log('User deleted');
 			getAllUsers().then((response) => {
 				return res.status(200).json({ users: response });
 			});
