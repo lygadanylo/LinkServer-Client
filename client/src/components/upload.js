@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { loadFiles } from '../common/action';
 import UserTable from './usersTable';
+import Register from './registerUsers';
 
 class Upload extends Component {
 	constructor(props) {
@@ -43,7 +44,7 @@ class Upload extends Component {
 							</button>
 						</div>
 					</div>
-					<div className="add-user">asd</div>
+					<Register />
 				</div>
 				<UserTable />
 			</div>

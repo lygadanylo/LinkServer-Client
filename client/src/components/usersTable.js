@@ -15,7 +15,7 @@ class UserTable extends Component {
 					<tr>
 						<th>User Id</th>
 						<th>User Name</th>
-						<th>User Class</th>
+						<th>User Role</th>
 						<th>Action</th>
 					</tr>
 					{users &&

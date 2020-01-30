@@ -5,23 +5,49 @@ import { sendRegisterData } from '../common/action';
 class Register extends Component {
 	constructor(props) {
 		super(props);
-		this.state = { name: '', password: '' };
+		this.state = { name: '', password: '', userRole: '' };
 	}
 
 	sendData = (data) => {
 		const { sendRegisterData } = this.props;
 		sendRegisterData(data);
+		return (this.setState = { name: ' ', password: ' ', userRole: ' ' });
 	};
 
 	render() {
-		const { name, password } = this.state;
+		const { name, password, userRole } = this.state;
 		return (
-			<div className="register-wrapper">
-				<h1>Name:</h1>
-				<input onChange={(e) => this.setState({ name: e.target.value })} />
-				<h1>Password:</h1>
-				<input type="password" onChange={(e) => this.setState({ password: e.target.value })} />
-				<button onClick={() => this.sendData({ name, password })}>Send</button>
+			<div className="form-wrapper">
+				<div className="inputs">
+					<p>User Name</p>
+					<input
+						value={name}
+						className="add-input"
+						onChange={(e) => this.setState({ name: e.target.value })}
+					/>
+				</div>
+				<div className="inputs">
+					<p>User Role</p>
+					<input
+						value={userRole}
+						className="add-input"
+						onChange={(e) => this.setState({ userRole: e.target.value })}
+					/>
+				</div>
+				<div className="inputs">
+					<p>Password</p>
+					<input
+						value={password}
+						type="password"
+						className="add-input"
+						onChange={(e) => this.setState({ password: e.target.value })}
+					/>
+				</div>
+				<div className="btn-wrapper">
+					<button className="add-btn" onClick={() => this.sendData({ name, password, userRole })}>
+						Add User
+					</button>
+				</div>
 			</div>
 		);
 	}

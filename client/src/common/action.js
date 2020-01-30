@@ -40,7 +40,7 @@ export const sendRegisterData = (data) => (dispatch) => {
 		data: data
 	})
 		.then((response) => {
-			console.log(response);
+			dispatch(AllUsers(response.data.users));
 		})
 		.catch((error) => {
 			console.log(error);
