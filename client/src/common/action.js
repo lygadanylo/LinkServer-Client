@@ -19,11 +19,12 @@ export const AllUsers = (data) => ({
 export const sendLoginData = ({ data, props }) => (dispatch) => {
 	axios({
 		method: 'POST',
-		url: 'http://172.24.211.7:8080/api/login',
+		url: 'http://172.24.211.94:8080/api/login',
 		data: data
 	})
 		.then((response) => {
 			if (response.data.token) {
+				props = props;
 				localStorage.setItem('token', response.data.token);
 				return props.history.push('/api/download');
 			}
@@ -48,16 +49,18 @@ export const sendRegisterData = (data) => (dispatch) => {
 };
 
 export const loadFiles = (data) => () => {
+	const token = localStorage.getItem('token');
 	axios({
 		method: 'POST',
-		url: 'http://172.24.211.7:8080/api/download',
-		data: data
+		url: 'http://172.24.211.94:8080/api/download',
+		data: { data, token }
 	})
 		.then((response) => {
 			fileDownload(response.data, `LinkServerLogs_${data.sessionId}.log`);
 		})
 		.catch((error) => {
-			console.log(error);
+			localStorage.clear();
+			return data.props.history.push('/');
 		});
 };
 

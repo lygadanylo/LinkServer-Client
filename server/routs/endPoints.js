@@ -71,7 +71,10 @@ export const login = (req, res) => {
 				const hashPassword = Decrypt(userPassword);
 				if (password === hashPassword) {
 					const token = new TokenGenerator().generate();
-					SESSION.set(userName, token);
+					SESSION.set(token, userName);
+					setInterval(() => {
+						SESSION.delete(token);
+					}, 15 * 60 * 1000);
 					return res.status(200).json({ token });
 				} else {
 					return res.status(500).json({ msg: 'Password invalid' });
@@ -96,35 +99,35 @@ export const register = (req, res) => {
 };
 
 export const download = (req, res) => {
-	const { sessionId } = req.body;
-	console.log(req.body);
-	const logsDirectoryPath = 'D:\\LOgs';
-
-	return new Promise((resolve, reject) => {
-		fs.readdir(logsDirectoryPath, (err, files) => {
-			if (err) {
-				console.log(err);
-				reject(err);
-			}
-			resolve(files);
-		});
-	})
-		.then((files) => {
-			let downloaded = [];
-
-			for (let i in files) {
-				let result = files[i].split('_');
-
-				//1579879800504
-				if (result[1] === sessionId) {
-					downloaded.push({ name: files[i] });
-					res.download(logsDirectoryPath + '\\' + downloaded[0].name);
+	const { data: { sessionId }, token } = req.body;
+	if (SESSION.has(token)) {
+		const logsDirectoryPath = 'D:\\LOgs';
+		return new Promise((resolve, reject) => {
+			fs.readdir(logsDirectoryPath, (err, files) => {
+				if (err) {
+					console.log(err);
+					reject(err);
 				}
-			}
+				resolve(files);
+			});
 		})
-		.catch((err) => {
-			console.log(err);
-		});
+			.then((files) => {
+				let downloaded = [];
+
+				for (let i in files) {
+					let result = files[i].split('_');
+					if (result[1] === sessionId) {
+						downloaded.push({ name: files[i] });
+						res.download(logsDirectoryPath + '\\' + downloaded[0].name);
+					}
+				}
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	} else {
+		return res.status(500).json({ type: false, msg: 'token deleted' });
+	}
 };
 
 export const featchUsers = (req, res) => {
