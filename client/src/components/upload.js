@@ -3,6 +3,11 @@ import { connect } from 'react-redux';
 import { loadFiles } from '../common/action';
 
 class Upload extends Component {
+	constructor(props) {
+		super(props);
+		this.state = { sessionId: '' };
+	}
+
 	componentDidMount() {
 		const token = localStorage.getItem('token');
 		if (!token) {
@@ -17,10 +22,28 @@ class Upload extends Component {
 
 	render() {
 		const { loadFiles } = this.props;
+		const { sessionId } = this.state;
 		return (
-			<div>
-				<button onClick={() => this.logout()}>Log Out</button>
-				<button onClick={() => loadFiles('110002225554477')}>Download files</button>
+			// <div>
+			// 	<button onClick={() => this.logout()}>Log Out</button>
+			// </div>
+			<div className="download-wrapper">
+				<div className="form-wrapper">
+					<div className="inputs">
+						<h1>User Session Id</h1>
+						<input
+							type="number"
+							name="sessionId"
+							className="sessionid-input"
+							onChange={(e) => this.setState({ sessionId: e.target.value })}
+						/>
+					</div>
+					<div className="btn-wrapper">
+						<button className="download-btn" onClick={() => loadFiles({ sessionId })}>
+							Download LinkServer log file
+						</button>
+					</div>
+				</div>
 			</div>
 		);
 	}

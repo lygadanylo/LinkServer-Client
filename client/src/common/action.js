@@ -14,7 +14,7 @@ export const Notification = (data) => ({
 export const sendLoginData = ({ data, props }) => (dispatch) => {
 	axios({
 		method: 'POST',
-		url: 'http://172.24.211.94:8080/api/login',
+		url: 'http://172.24.211.7:8080/api/login',
 		data: data
 	})
 		.then((response) => {
@@ -31,7 +31,7 @@ export const sendLoginData = ({ data, props }) => (dispatch) => {
 export const sendRegisterData = (data) => (dispatch) => {
 	axios({
 		method: 'POST',
-		url: 'http://172.24.211.94:8080/api/register',
+		url: 'http://172.24.211.7:8080/api/register',
 		data: data
 	})
 		.then((response) => {
@@ -42,27 +42,16 @@ export const sendRegisterData = (data) => (dispatch) => {
 		});
 };
 
-export const loadFiles = (session) => () => {
+export const loadFiles = (data) => () => {
 	axios({
-		method: 'GET',
-		url: 'http://172.24.211.7:8080/api/download'
+		method: 'POST',
+		url: 'http://172.24.211.7:8080/api/download',
+		data: data
 	})
 		.then((response) => {
-			fileDownload(response.data, `${session}.txt`);
+			fileDownload(response.data, `LinkServerLogs_${data.sessionId}.log`);
 		})
 		.catch((error) => {
 			console.log(error);
 		});
 };
-
-// export const downloadFile = (data) => {
-// 	fetch('http://localhost:3000/api/download').then((response) => {
-// 		response.blob().then((blob) => {
-// 			let url = window.URL.createObjectURL(blob);
-// 			let a = document.createElement('a');
-// 			a.href = url;
-// 			a.download = data;
-// 			a.click();
-// 		});
-// 	});
-// };

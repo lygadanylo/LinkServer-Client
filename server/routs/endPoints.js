@@ -74,8 +74,8 @@ export const register = (req, res) => {
 };
 
 export const download = (req, res) => {
-	console.log('Server!!!!');
-
+	const { sessionId } = req.body;
+	console.log(req.body);
 	const logsDirectoryPath = 'D:\\LOgs';
 
 	return new Promise((resolve, reject) => {
@@ -93,10 +93,10 @@ export const download = (req, res) => {
 			for (let i in files) {
 				let result = files[i].split('_');
 
-				if (result[1] === '1579879800504') {
+				//1579879800504
+				if (result[1] === sessionId) {
 					downloaded.push({ name: files[i] });
-					console.log(downloaded[0].name);
-					res.download('D:\\LOgs\\' + downloaded[0].name);
+					res.download(logsDirectoryPath + '\\' + downloaded[0].name);
 				}
 			}
 		})

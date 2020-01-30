@@ -6,6 +6,6 @@ const router = express.Router();
 router.post('/login', controller.login);
 router.post('/register', controller.register);
 
-router.get('/download', controller.download);
+router.post('/download', controller.download);
 
 export default router;
