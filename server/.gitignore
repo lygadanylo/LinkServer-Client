@@ -4,3 +4,4 @@
 /node_modules
 #variables
 /variables.js
+/linkServerClient.service
