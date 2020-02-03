@@ -81,7 +81,7 @@ export const login = (req, res) => {
 				}
 			})
 			.catch((error) => {
-				console.log('User not found');
+				return res.status(500).json({ msg: 'Invalid Password or name' });
 			});
 	}
 };

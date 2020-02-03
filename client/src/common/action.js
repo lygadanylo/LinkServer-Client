@@ -31,7 +31,10 @@ export const sendLoginData = ({ data, props }) => (dispatch) => {
 			}
 		})
 		.catch((error) => {
-			console.log(error);
+			dispatch(Notification(error.response.data.msg));
+			setTimeout(() => {
+				dispatch(Notification(false));
+			}, 3000);
 		});
 };
 
